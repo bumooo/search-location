@@ -1,4 +1,4 @@
-package com.search.location.domain.location.service;
+package com.search.location.domain.search.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.search.location.domain.search.service.impl.KakaoSearchApiServiceImpl;
@@ -15,7 +15,7 @@ import org.springframework.web.client.RestTemplate;
 import java.util.List;
 
 @SpringBootTest
-class KakaoSearchServiceTest {
+class KakaoSearchApiServiceTest {
 
     @InjectMocks private static KakaoSearchApiServiceImpl kakaoSearchService;
 

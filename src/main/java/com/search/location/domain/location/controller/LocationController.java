@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/location")
+@RequestMapping("{version:v1.*}/locations")
 @RequiredArgsConstructor
 public class LocationController {
 

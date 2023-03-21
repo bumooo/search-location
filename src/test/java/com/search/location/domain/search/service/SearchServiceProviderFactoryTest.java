@@ -19,10 +19,11 @@ class SearchServiceProviderFactoryTest {
     void getService () throws Exception {
         // given
         PlatForm platForm = PlatForm.KAKAO;
+
         // when
         SearchApiService service = searchServiceProviderFactory.getService(platForm);
-        // then
 
+        // then
         Assertions.assertThat(service.getClass()).isEqualTo(KakaoSearchApiServiceImpl.class);
     }
 }

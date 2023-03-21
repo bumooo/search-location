@@ -2,6 +2,8 @@ package com.search.location.domain.search.service;
 
 
 import com.search.location.domain.search.enums.PlatForm;
+import com.search.location.exception.CustomException;
+import com.search.location.exception.type.PlatFormExceptionType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -28,6 +30,6 @@ public class SearchServiceProviderFactory {
         if (serviceMap.containsKey(platForm)) {
             return serviceMap.get(platForm);
         }
-        throw new IllegalArgumentException("해당 플랫폼을 지원하지 않습니다. : " + platForm);
+        throw new CustomException(PlatFormExceptionType.NOT_SUPPORT_PLATFORM);
     }
 }

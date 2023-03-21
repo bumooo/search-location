@@ -7,6 +7,7 @@ import com.search.location.domain.search.service.AbstractApiService;
 import com.search.location.domain.search.service.SearchApiService;
 import com.search.location.domain.search.vo.CommonLocation;
 import com.search.location.domain.search.vo.KakaoLocationResponseVo;
+import com.search.location.exception.CustomException;
 import com.search.location.utils.UrlUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -78,8 +79,8 @@ public class KakaoSearchApiServiceImpl extends AbstractApiService implements Sea
 
         if (response.getStatusCode() == HttpStatus.OK) {
             return convertResponseToObject(response.getBody(), KakaoLocationResponseVo.class);
-        } else {
-            return null;
         }
+        log.error("정보를 받아오기 실패했습니다. : {} {}", getPlatForm(), requestUrl.toUriString());
+        throw new CustomException(response.getStatusCode().getReasonPhrase());
     }
 }

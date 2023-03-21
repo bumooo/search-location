@@ -15,7 +15,7 @@ import static java.util.stream.Collectors.toList;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/keyword")
+@RequestMapping("{version:v1.*}/keywords")
 public class KeywordController {
 
     private final KeywordServiceImpl keywordService;
