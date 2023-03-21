@@ -4,6 +4,8 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.search.location.domain.search.vo.CommonLocation;
 import com.search.location.domain.search.vo.CommonLocationResponseVo;
+import com.search.location.exception.CustomException;
+import com.search.location.exception.type.ApiServiceExceptionType;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpEntity;
@@ -39,9 +41,7 @@ public abstract class AbstractApiService {
         try {
             return responseType.cast(objectMapper.readValue(body, responseType)).getResult();
         } catch (JsonProcessingException e) {
-            e.printStackTrace();
-            log.error("Json Parse 오류 발생");
-            return null;
+            throw new CustomException(ApiServiceExceptionType.FAIL_JSON_PARSE);
         }
     }
 }

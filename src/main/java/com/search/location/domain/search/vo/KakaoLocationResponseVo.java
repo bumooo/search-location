@@ -20,9 +20,6 @@ public class KakaoLocationResponseVo implements CommonLocationResponseVo {
     public static class KakaoLocation implements CommonLocation {
         private String placeName;
 
-        private String roadAddress;
-
-
         @Override
         public String getName() {
             return this.placeName;
@@ -34,7 +31,4 @@ public class KakaoLocationResponseVo implements CommonLocationResponseVo {
             return kakaoLocation;
         }
     }
-
-
-
 }

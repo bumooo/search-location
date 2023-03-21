@@ -20,8 +20,6 @@ public class NaverLocationResponseVo implements CommonLocationResponseVo {
     public static class NaverLocation implements CommonLocation{
         private String title;
 
-        private String roadAddress;
-
         @Override
         public String getName() {
             return this.title;

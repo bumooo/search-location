@@ -3,7 +3,6 @@ package com.search.location.common.response;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
-import lombok.Setter;
 
 import java.util.HashMap;
 import java.util.List;
@@ -22,16 +21,21 @@ public class ApiResponse {
     private Object data;
 
     @Getter
-    @Setter
     static class Header {
 
-        private int code = 200;
+        private final String message;
 
-        private String message = "SUCCESS";
+        private Header() {
+            this.message = "SUCCESS";
+        }
+
+        private Header(String message) {
+            this.message = message;
+        }
     }
 
-    private ApiResponse(Header header, Object result) {
-        this.header = header;
+    private ApiResponse(Object result) {
+        this.header = new Header();
 
         if (result == null) {
             this.data = new HashMap<>();
@@ -44,8 +48,16 @@ public class ApiResponse {
         }
     }
 
+    private ApiResponse(String message) {
+        this.header = new Header(message);
+    }
+
+    public static ApiResponse error(String message) {
+        return new ApiResponse(message);
+    }
+
     public static ApiResponse ok(Object result) {
-        return new ApiResponse(new Header(), result);
+        return new ApiResponse(result);
     }
 
     private void setList(List<?> result) {

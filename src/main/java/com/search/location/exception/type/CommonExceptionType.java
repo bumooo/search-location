@@ -2,15 +2,14 @@ package com.search.location.exception.type;
 
 import com.search.location.exception.CommonCustomException;
 
-public enum PlatFormExceptionType implements CommonCustomException {
+public enum CommonExceptionType implements CommonCustomException {
 
-    NOT_SUPPORT_PLATFORM("지원하지 않는 플랫폼입니다.")
+    INTERRUPT_THREAD("작업 진행이 중단되었습니다.")
     ;
-
 
     private final String message;
 
-    PlatFormExceptionType(String message) {
+    CommonExceptionType(String message) {
         this.message = message;
     }
 

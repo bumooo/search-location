@@ -22,7 +22,6 @@ public class KeywordController {
 
     @GetMapping
     public ApiResponse findKeywords() {
-
         List<Keyword> topKeywords = keywordService.findTopKeyword();
 
         List<KeywordResponseDto> topKeywordResponse = topKeywords.stream()

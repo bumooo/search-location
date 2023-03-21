@@ -4,20 +4,14 @@ import com.search.location.exception.CommonCustomException;
 
 public enum ApiServiceExceptionType implements CommonCustomException {
 
+    NOT_FOUND_INFORMATION("정보를 받아오기 실패했습니다."),
+    FAIL_JSON_PARSE("JSON 파싱을 실패했습니다.")
     ;
-
-    private final int code;
 
     private final String message;
 
-    ApiServiceExceptionType(int code, String message) {
-        this.code = code;
+    ApiServiceExceptionType(String message) {
         this.message = message;
-    }
-
-    @Override
-    public int getCode() {
-        return this.code;
     }
 
     @Override

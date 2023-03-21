@@ -3,6 +3,8 @@ package com.search.location.domain.keyword.service;
 
 import com.search.location.domain.keyword.entity.Keyword;
 import com.search.location.domain.keyword.repository.KeywordRepository;
+import com.search.location.exception.CustomException;
+import com.search.location.exception.type.KeywordExceptionType;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.redisson.api.RLock;
@@ -29,7 +31,7 @@ public class KeywordServiceImpl {
         RLock lock = redissonClient.getLock(name);
 
         try {
-            boolean isAvailable = lock.tryLock(10, 3, TimeUnit.SECONDS);
+            boolean isAvailable = lock.tryLock(3, 3, TimeUnit.SECONDS);
             if (!isAvailable) {
                 return ;
             }
@@ -38,7 +40,8 @@ public class KeywordServiceImpl {
             keywordRepository.save(findKeyword);
 
         } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+            Thread.currentThread().interrupt();
+            throw new CustomException(KeywordExceptionType.FAIL_INCREASE_KEYWORD_COUNT);
         } finally {
             lock.unlock();
         }

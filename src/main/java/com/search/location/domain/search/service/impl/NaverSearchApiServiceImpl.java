@@ -7,12 +7,12 @@ import com.search.location.domain.search.service.SearchApiService;
 import com.search.location.domain.search.vo.CommonLocation;
 import com.search.location.domain.search.vo.NaverLocationResponseVo;
 import com.search.location.exception.CustomException;
+import com.search.location.exception.type.ApiServiceExceptionType;
 import com.search.location.utils.UrlUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -77,12 +77,14 @@ public class NaverSearchApiServiceImpl extends AbstractApiService implements Sea
 
         HttpEntity<Object> httpEntity = new HttpEntity<>(getDefaultHeaderMap());
 
-        ResponseEntity<String> response = get(UrlUtils.encoderUrl(requestUrl), httpEntity);
-
-        if (response.getStatusCode() == HttpStatus.OK) {
-            return convertResponseToObject(response.getBody(), NaverLocationResponseVo.class);
+        try {
+            ResponseEntity<String> response = get(UrlUtils.encoderUrl(requestUrl), httpEntity);
+            if (response.getStatusCode().is2xxSuccessful()) {
+                return convertResponseToObject(response.getBody(), NaverLocationResponseVo.class);
+            }
+        } catch (Exception e) {
+            log.error("정보를 받아오기 실패했습니다. : {} {}", getPlatForm(), requestUrl.toUriString());
         }
-        log.error("정보를 받아오기 실패했습니다. : {} {}", getPlatForm(), requestUrl.toUriString());
-        throw new CustomException(response.getStatusCode().getReasonPhrase());
+        throw new CustomException(ApiServiceExceptionType.NOT_FOUND_INFORMATION);
     }
 }
