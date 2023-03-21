@@ -1,12 +1,14 @@
 package com.search.location.exception;
 
+import lombok.Getter;
+
+@Getter
 public class CustomException extends RuntimeException {
+
+    private final String message;
 
     public CustomException(CommonCustomException exception) {
         super(exception.getMessage());
-    }
-
-    public CustomException(String message) {
-        super(message);
+        this.message = exception.getMessage();
     }
 }
